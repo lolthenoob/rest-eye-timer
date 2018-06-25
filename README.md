@@ -2,5 +2,5 @@
 
 Timer has 3 function
  - Countdown timer => implemented
- - Stopwatch => still implementing
+ - Stopwatch => done, history todo
  - Rest eye timer => todo
