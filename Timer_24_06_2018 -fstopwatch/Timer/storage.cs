@@ -10,9 +10,11 @@ namespace timerProject
 {
     public class storage
     {
-       public  List<string> listHistory = new List<string>();
-       public  List<string> listBookMarks = new List<string>();
-       public  List<string> listRepeat = new List<string>();
+       public  List<string> listCountDownHistory = new List<string>();
+       public  List<string> listCountDownBookMarks = new List<string>();
+       public  List<string> listCountDownRepeat = new List<string>();
+
+       public List<string> listSWHistory = new List<string>();
 
 
         public List<string> getSplittedTime(int index, string type)
@@ -22,11 +24,11 @@ namespace timerProject
             switch(type)
             {
                 case "history":
-                   splitArray = listHistory[index].Split(':');
+                   splitArray = listCountDownHistory[index].Split(':');
                     break;
 
                 case "bookmark":
-                    splitArray = listBookMarks[index].Split(':');
+                    splitArray = listCountDownBookMarks[index].Split(':');
                     break;
             }
             
@@ -35,45 +37,49 @@ namespace timerProject
             return values;
        }
 
-        public  void addHistoryList( string a, string b, string c, string d)
+        public  void addToListMultipleCol( string a, string b, string c, string d)
         {
             string input = a.PadLeft(3 - a.Length, '0') + ":" + b.PadLeft(3 - a.Length, '0') + ":" + c.PadLeft(3 - c.Length, '0');
 
-            listHistory.Insert(0, input);
-            listRepeat.Insert(0, d);      
+            listCountDownHistory.Insert(0, input);
+            listCountDownRepeat.Insert(0, d);      
         }
 
-        public void addBookMarkListMultiple(string a, string b, string c)
+        public void addToListSingleCol(string a, string b, string c,  List<string> listType)
         {
-            string input = a.PadLeft(3 - a.Length, '0') + ":" + b.PadLeft(3 - a.Length, '0') + ":" + c.PadLeft(3 - c.Length, '0');
-            listBookMarks.Insert(0, input);
+            
+            string input = a.PadLeft(3 - a.Length, '0') + ":" + b.PadLeft(3 - a.Length, '0') + ":" + c.PadLeft(3 - c.Length, '0') ;
+            listType.Insert(0, input);
         }
 
-        public void updateListView(ListView listview, string type)
+        public void updateListViewSingle(ListView listview, List<string> list)
         {
              listview.Items.Clear();
-        switch(type)
-        { 
-            case "history":
 
-                 for(int i = 0; i < listHistory.Count(); i++)
-                    {
-                        listview.Items.Add(listHistory[i]).SubItems.Add(listRepeat[i]);
-                    }
-           break;
-
-            case "bookmark":
-                  foreach(string j in listBookMarks)
+            
+                  foreach(string j in list)
                     {
                         listview.Items.Add(j);
                     }
-            break;
+        
         }
+
+        public void updateListViewMultiple(ListView listview, List<string> list1, List<string> list2)
+        {
+            listview.Items.Clear();
+            for (int i = 0; i < list1.Count(); i++)
+            {
+                listview.Items.Add(list1[i]).SubItems.Add(list2[i]);
+            }
         }
 
         public string padSingleString(string a)
         {
-            string input = a.PadLeft(3 - a.Length, '0');
+            string input = a;
+            if (a.Length < 3)
+            {
+                input = a.PadLeft(3 - a.Length, '0');
+            }
             return input;
         }
 
@@ -87,7 +93,7 @@ namespace timerProject
 
             if (File.Exists(filepath) == false)
             {
-                File.CreateText(filepath);
+                File.WriteAllBytes(filepath, new byte[0]);
             }
 
             using (StreamReader sr = new StreamReader(filepath))
@@ -102,11 +108,11 @@ namespace timerProject
                         switch(type)
                         {
                             case "history":
-                                if (checkLoadedFile(line, type) == true)
+                                if (checkLoadedFile(line, "multiple") == true)
                                 {
                                     string[] file = line.Split(',');
-                                    listHistory.Add(file[0]);
-                                    listRepeat.Add(file[1]);
+                                    listCountDownHistory.Add(file[0]);
+                                    listCountDownRepeat.Add(file[1]);
                                 }
 
 
@@ -118,9 +124,9 @@ namespace timerProject
 
 
                             case "bookmark":
-                                if (checkLoadedFile(line, type) == true)
+                                if (checkLoadedFile(line, "single") == true)
                                 {
-                                    listBookMarks.Add(line);
+                                    listCountDownBookMarks.Add(line);
                                 }
 
                                 else
@@ -128,6 +134,25 @@ namespace timerProject
                                     MessageBox.Show("Error at line " + lineNum.ToString() + "in " + type + " file"  + "\nRaw data: " + line, "Error", MessageBoxButtons.OK);
                                 }
                                 break;
+
+
+                            case "stopwatch":
+                                if (checkLoadedFile(line, "single") == true)
+                                {
+                                    listSWHistory.Add(line);
+                                }
+
+                                else
+                                {
+                                    MessageBox.Show("Error at line " + lineNum.ToString() + "in " + type + " file" + "\nRaw data: " + line, "Error", MessageBoxButtons.OK);
+                                }
+                                break;
+
+                                
+
+                                
+
+                            
 
                         }
                         
@@ -153,7 +178,7 @@ namespace timerProject
             {
                 switch (type)
                 {
-                    case "history":
+                    case "multiple":
                         string[] arrayHis = input.Split(',');
                         int checkHistoryRepeat = int.Parse(arrayHis[1]);
                         string[] checkHistoryTIme = arrayHis[0].Split(':');
@@ -165,7 +190,7 @@ namespace timerProject
 
                             break;
 
-                    case "bookmark":
+                    case "single":
                         string[] checkBmTime = input.Split(':');
 
                         for (int i = 0; i < checkBmTime.Length; i++)
@@ -204,18 +229,18 @@ namespace timerProject
 
                     case "history":
 
-                        for (int i = 0; i < listHistory.Count(); i ++ )
+                        for (int i = 0; i < listCountDownHistory.Count(); i ++ )
                         {
-                            string input = listHistory[i] + "," + listRepeat[i];
+                            string input = listCountDownHistory[i] + "," + listCountDownRepeat[i];
                             sw.WriteLine(input);
                         }
                             break;
 
                     case "bookmark":
 
-                        for(int j = 0; j < listBookMarks.Count(); j++)
+                        for(int j = 0; j < listCountDownBookMarks.Count(); j++)
                         {
-                            sw.WriteLine(listBookMarks[j]);
+                            sw.WriteLine(listCountDownBookMarks[j]);
                         }
 
                         break;
