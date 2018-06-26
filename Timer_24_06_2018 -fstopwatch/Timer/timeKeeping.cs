@@ -9,55 +9,119 @@ namespace timerProject
     public class timeKeeping
     {
       
-        public int hour = 0;
-        public int min = 0;
-        public int sec = 0;
-        public int totalTime = 0;
+        public int countDownHour = 0;
+        public int countDownMin = 0;
+        public int countDownSec = 0;
+        public int countDownTotalTime = 0;
+
+        public int SWHour = 0;
+        public int SWMin = 0;
+        public int SWSec = 0;
+        public int SWMiSec = 0;
+
+
+
         
         
-        public void updateTime(int type)
+        public void updateTime(string type, int currentNum)
         {
-            if(totalTime == 0)
+           
+
+            switch(type)
             {
-                totalTime = hour * 3600 + min * 60 + sec;
-                //Console.WriteLine(totalTime);
+                case "countdown":
+
+                    if (countDownTotalTime == 0)
+                    {
+                        countDownTotalTime = countDownHour * 3600 + countDownMin * 60 + countDownSec;
+                        //Console.WriteLine(countDownTotalTime);
+                    }
+
+                    if (currentNum % 3600 == 0 && countDownHour > 0)
+                    {
+                        countDownHour--;
+                        countDownMin += 60;
+                    }
+
+                    if (currentNum % 60 == 0 && countDownMin > 0)
+                    {
+                        countDownMin--;
+                        countDownSec += 59;
+
+                    }
+
+                    else if (countDownSec > 0)
+                    {
+                        countDownSec--;
+                    }
+                    break;
+
+
+
+                case "stopwatch":
+                    
+                    if (SWMiSec < 100)
+                    {
+                        SWMiSec++;
+                    }
+
+                    if (currentNum% 100 == 0 && currentNum > 0 )
+                    {
+                        SWMiSec = 0;
+                        SWSec ++;
+;
+                    }
+
+                    if(currentNum % 6000 == 0 && currentNum > 0)
+                    {
+                        SWSec = 0;
+                        SWMin++;
+
+                    }
+
+                    if (currentNum % 360000 == 0 && currentNum > 0)
+                    {
+                        SWMin = 0;
+                        SWHour++;
+
+                    }
+                    break;
             }
 
-            if (type % 3600 == 0 && hour > 0)
-            {
-                hour--;
-                min += 59;
-            }
 
-            if (type % 60 == 0 && min > 0)
-            {
-                min--;
-                sec += 59;
-
-            }
-
-            else if (sec > 0)
-            {
-                sec--;
-            }
+           
 
 
 
         }  
 
-        public void setTimeList(List<string> data)
+        public void setTimeList(string type, List<string> data)
         {
-            hour = int.Parse(data[0]);
-            min = int.Parse(data[1]);
-            sec = int.Parse(data[2]);
+            switch(type)
+            {
+                case "countdown":
+                    countDownHour = int.Parse(data[0]);
+                    countDownMin = int.Parse(data[1]);
+                    countDownSec = int.Parse(data[2]);
+                    break;
+            }
+           
 
         }
 
-        public void setTimeInt(string inHour, string inMin, string inSec)
+        public void setTimeInt(string type, string inHour, string inMin, string inSec)
         {
-            hour = int.Parse(inHour);
-            min = int.Parse(inMin);
-            sec = int.Parse(inSec);
+            switch(type)
+            {
+                case "countdown":
+                    countDownHour = int.Parse(inHour);
+                    countDownMin = int.Parse(inMin);
+                    countDownSec = int.Parse(inSec);
+                    break;
+
+               
+            }
+           
         }
     }
 }
