@@ -30,6 +30,7 @@ namespace timerProject
         private void Form1_Load(object sender, EventArgs e)
         {
             initialise("countdown");
+            initialise("stopwatch");
             textBoxRepeat.Text = "1";
             textBoxRepeat.Enabled = false;
 
@@ -41,11 +42,16 @@ namespace timerProject
             listViewBmark.Columns.Add("", 60);
             listViewBmark.HeaderStyle = ColumnHeaderStyle.None;
 
+            SWListViewHis.Columns.Add("", 100);
+           
+
             memory.loadFile("history");
             memory.loadFile("bookmark");
+            memory.loadFile("stopwatch");
 
-            memory.updateListView(listViewBmark, "bookmark");
-            memory.updateListView(listViewHistory, "history");
+            memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
+            memory.updateListViewMultiple(listViewHistory, memory.listCountDownHistory, memory.listCountDownRepeat);
+            memory.updateListViewSingle(SWListViewHis, memory.listSWHistory);
 
 
 
@@ -58,21 +64,21 @@ namespace timerProject
 
             try
             {
-                timeTick.setTimeInt(textBoxHour.Text, textBoxMin.Text, textBoxSec.Text);
+                timeTick.setTimeInt("countdown", textBoxHour.Text, textBoxMin.Text, textBoxSec.Text);
                 numRepeat = int.Parse(textBoxRepeat.Text);
-                timeTick.totalTime = 0;
-                countDownCurrent = timeTick.hour * 3600 + timeTick.min * 60 + timeTick.sec;
+                timeTick.countDownTotalTime = 0;
+                countDownCurrent = timeTick.countDownHour * 3600 + timeTick.countDownMin * 60 + timeTick.countDownSec;
 
-                if (timeTick.hour * 3600 + timeTick.min * 60 + timeTick.sec > 0 && timeTick.min <= 60 && timeTick.sec <= 60)
+                if (timeTick.countDownHour * 3600 + timeTick.countDownMin * 60 + timeTick.countDownSec > 0 && timeTick.countDownMin <= 60 && timeTick.countDownSec <= 60)
                 {
 
-                    memory.addHistoryList(textBoxHour.Text, textBoxMin.Text, textBoxSec.Text, textBoxRepeat.Text);
-                    memory.updateListView(listViewHistory, "history");
+                    memory.addToListMultipleCol(textBoxHour.Text, textBoxMin.Text, textBoxSec.Text, textBoxRepeat.Text);
+                    memory.updateListViewMultiple(listViewHistory, memory.listCountDownHistory, memory.listCountDownRepeat);
 
 
                     TimerCountDown.Interval = 1000;
                     TimerCountDown.Start();
-                    toggleAvaliabilityTextbox(false);
+                    toggleAvaliabilityTextbox("countdown",false);
                 }
 
                 else
@@ -93,13 +99,14 @@ namespace timerProject
         {
 
             initialise("countdown");
+ 
 
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
             TimerCountDown.Stop();
-            updateTextBoxes();
+            updateTextBoxes("countdown");
 
         }
 
@@ -111,9 +118,9 @@ namespace timerProject
         private void checkTiming_Tick(object sender, EventArgs e)
         {
 
-            timeTick.updateTime(countDownCurrent);
+            timeTick.updateTime("countdown",countDownCurrent);
             Console.WriteLine(countDownCurrent);
-            updateTextBoxes();
+            updateTextBoxes("countdown");
 
             if (countDownCurrent > 0)
             {
@@ -126,9 +133,9 @@ namespace timerProject
                 if (numRepeat == 1)
                 {
                     TimerCountDown.Stop();
-                    toggleAvaliabilityTextbox(true);
-                    MessageBox.Show(memory.listHistory.Last() + " has elapsed", "Timing has Ended", MessageBoxButtons.OK);
-                    timeTick.totalTime = 0;
+                    toggleAvaliabilityTextbox("countdown",true);
+                    MessageBox.Show(memory.listCountDownHistory.Last() + " has elapsed", "Timing has Ended", MessageBoxButtons.OK);
+                    timeTick.countDownTotalTime = 0;
 
                 }
 
@@ -136,14 +143,14 @@ namespace timerProject
                 if (numRepeat > 1)
                 {
                     numRepeat--;
-                    countDownCurrent = timeTick.totalTime;
+                    countDownCurrent = timeTick.countDownTotalTime;
 
 
-                    setTextBoxes(memory.getSplittedTime(memory.listHistory.Count() - 1 , "history"));
-                    timeTick.setTimeList(memory.getSplittedTime(memory.listHistory.Count() - 1, "history"));
+                    setTextBoxes(memory.getSplittedTime(memory.listCountDownHistory.Count() - 1 , "history"));
+                    timeTick.setTimeList("countdown", memory.getSplittedTime(memory.listCountDownHistory.Count() - 1, "history"));
                     TimerCountDown.Stop();
 
-                    if (MessageBox.Show(memory.listHistory.Last() + " has elapsed. " + "Repeating " + numRepeat.ToString() + " more times", "Timing has Ended", MessageBoxButtons.OK) == DialogResult.OK)
+                    if (MessageBox.Show(memory.listCountDownHistory.Last() + " has elapsed. " + "Repeating " + numRepeat.ToString() + " more times", "Timing has Ended", MessageBoxButtons.OK) == DialogResult.OK)
                     {
                         TimerCountDown.Interval = 1000;
                         TimerCountDown.Start();
@@ -157,11 +164,24 @@ namespace timerProject
 
         }
 
-        private void updateTextBoxes()
+        private void updateTextBoxes(string type)
         {
-            textBoxHour.Text = memory.padSingleString(timeTick.hour.ToString());
-            textBoxMin.Text = memory.padSingleString(timeTick.min.ToString());
-            textBoxSec.Text = memory.padSingleString(timeTick.sec.ToString());
+            switch(type)
+            {
+                case "countdown":
+                    textBoxHour.Text = memory.padSingleString(timeTick.countDownHour.ToString());
+                    textBoxMin.Text = memory.padSingleString(timeTick.countDownMin.ToString());
+                    textBoxSec.Text = memory.padSingleString(timeTick.countDownSec.ToString());
+                    break;
+
+                case "stopwatch":
+                    SWTextBoxHr.Text = memory.padSingleString(timeTick.SWHour.ToString());
+                    SWTextBoxMin.Text = memory.padSingleString(timeTick.SWMin.ToString());
+                    SWTextBoxSec.Text = memory.padSingleString(timeTick.SWSec.ToString());
+                    SWTextBoxMiSec.Text = memory.padSingleString(timeTick.SWMiSec.ToString());
+                    break;
+            }
+
         }
 
         private void initialise(string mode)
@@ -173,41 +193,79 @@ namespace timerProject
                     textBoxMin.Text = "00";
                     textBoxSec.Text = "00";
                     countDownCurrent = 0;
-                    timeTick.hour = 0;
-                    timeTick.min = 0;
-                    timeTick.sec = 0;
+                    timeTick.countDownHour = 0;
+                    timeTick.countDownMin = 0;
+                    timeTick.countDownSec = 0;
                     TimerCountDown.Stop();
-                    toggleAvaliabilityTextbox(true);
+                    toggleAvaliabilityTextbox(mode,true);
                     break;
 
                 case"stopwatch":
                     SWTextBoxHr.Text = "00";
                     SWTextBoxMin.Text = "00";
                     SWTextBoxSec.Text = "00";
+                    SWTextBoxMiSec.Text = "00";
+                    timeTick.SWHour = 0;
+                    timeTick.SWMin = 0;
+                    timeTick.SWSec = 0;
+                    timeTick.SWMiSec = 0;
+                    SWtimer.Stop();
+
                     break;
             }
             
         }
 
-        private void toggleAvaliabilityTextbox(bool enabled)
+        private void toggleAvaliabilityTextbox(string type, bool enabled)
         {
-            switch (enabled)
+
+            switch(type)
             {
-                case true:
-                    textBoxHour.ReadOnly = false;
-                    textBoxMin.ReadOnly = false;
-                    textBoxSec.ReadOnly = false;
-                    btnHistoTimer.Enabled = true;
+                case "countdown":
+
+                    switch (enabled)
+                    {
+                        case true:
+                            textBoxHour.ReadOnly = false;
+                            textBoxMin.ReadOnly = false;
+                            textBoxSec.ReadOnly = false;
+                            btnHistoTimer.Enabled = true;
+                            btnBMtoTimer.Enabled = true;
+                            btnStart.Enabled = true;
+                            break;
+
+                        case false:
+                            textBoxHour.ReadOnly = true;
+                            textBoxMin.ReadOnly = true;
+                            textBoxSec.ReadOnly = true;
+                            btnHistoTimer.Enabled = false;
+                            btnBMtoTimer.Enabled = false;
+                            btnStart.Enabled = false;
+                            break;
+                    }
                     break;
 
-                case false:
-                    textBoxHour.ReadOnly = true;
-                    textBoxMin.ReadOnly = true;
-                    textBoxSec.ReadOnly = true;
-                    btnHistoTimer.Enabled = false;
-                    break;
+                case "stopwatch":
+                    switch(enabled)
+                    {
+                        case true:
+                            SWbtnStart.Enabled = true;
+                            SWbtnReset.Enabled = true;
+                            SWbtnStop.Enabled = false;
+                            
+                            break;
 
+                        case false:
+                            SWbtnStart.Enabled = false;
+                            SWbtnReset.Enabled = false;
+                            SWbtnStop.Enabled = true;
+
+                            break;
+                    }
+                    break;
             }
+
+            
         }
 
         private void setTextBoxes(List<string> data)
@@ -222,8 +280,10 @@ namespace timerProject
             if (listViewHistory.SelectedIndices.Count > 0)
             {
                 int index = listViewHistory.SelectedIndices[0];
-                memory.listHistory.RemoveAt(index);
-                memory.updateListView(listViewHistory, "history");
+                memory.listCountDownHistory.RemoveAt(index);
+                memory.listCountDownRepeat.RemoveAt(index);
+
+                memory.updateListViewMultiple(listViewHistory, memory.listCountDownHistory, memory.listCountDownRepeat);
             }
         }
 
@@ -231,8 +291,8 @@ namespace timerProject
         {
             if ((MessageBox.Show("Are you sure you want to clear all history", "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK))
             {
-                memory.listHistory.Clear();
-                memory.updateListView(listViewHistory, "history");
+                memory.listCountDownHistory.Clear();
+                memory.updateListViewMultiple(listViewHistory, memory.listCountDownHistory, memory.listCountDownRepeat);
 
             }
         }
@@ -245,15 +305,15 @@ namespace timerProject
             {
                 int index = listViewHistory.SelectedIndices[0];
                 setTextBoxes(memory.getSplittedTime(index, "history"));
-                timeTick.setTimeList(memory.getSplittedTime(index, "history"));
+                timeTick.setTimeList("countdown", memory.getSplittedTime(index, "history"));
             }
 
         }
 
         private void btnAddBMFrmTimer_Click(object sender, EventArgs e)
         {
-            memory.addBookMarkListMultiple(textBoxHour.Text, textBoxMin.Text, textBoxSec.Text);
-            memory.updateListView(listViewBmark, "bookmark");
+            memory.addToListSingleCol(textBoxHour.Text, textBoxMin.Text, textBoxSec.Text, memory.listCountDownBookMarks);
+            memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
         }
 
         private void btnAddBMFrmHis_Click(object sender, EventArgs e)
@@ -261,8 +321,8 @@ namespace timerProject
             if (listViewHistory.SelectedIndices.Count > 0)
             {
                 int index = listViewHistory.SelectedIndices[0];
-                memory.listBookMarks.Insert(0,memory.listHistory[index]);
-                memory.updateListView(listViewBmark, "bookmark");
+                memory.listCountDownBookMarks.Insert(0,memory.listCountDownHistory[index]);
+                memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
             }
         }
 
@@ -274,7 +334,7 @@ namespace timerProject
             {
                 int index = listViewBmark.SelectedIndices[0];
                 setTextBoxes(memory.getSplittedTime(index, "bookmark"));
-                timeTick.setTimeList(memory.getSplittedTime(index, "bookmark"));
+                timeTick.setTimeList("countdown", memory.getSplittedTime(index, "bookmark"));
             }
         }
 
@@ -283,8 +343,8 @@ namespace timerProject
             if (listViewBmark.SelectedIndices.Count > 0)
             {
                 int index = listViewBmark.SelectedIndices[0];
-                memory.listBookMarks.RemoveAt(index);
-                memory.updateListView(listViewBmark, "bookmark");
+                memory.listCountDownBookMarks.RemoveAt(index);
+                memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
             }
         }
 
@@ -292,8 +352,8 @@ namespace timerProject
         {
             if ((MessageBox.Show("Are you sure you want to clear all bookmarks", "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK))
             {
-                memory.listBookMarks.Clear();
-                memory.updateListView(listViewBmark, "bookmark");
+                memory.listCountDownBookMarks.Clear();
+                memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
 
             }
         }
@@ -339,13 +399,13 @@ namespace timerProject
         private void historyToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             memory.loadFile("history");
-            memory.updateListView(listViewHistory, "history");
+            memory.updateListViewMultiple(listViewHistory, memory.listCountDownHistory, memory.listCountDownRepeat);
         }
 
         private void bookmarksToolStripMenuItem_Click(object sender, EventArgs e)
         {
             memory.loadFile("bookmark");
-            memory.updateListView(listViewBmark, "bookmark");
+            memory.updateListViewSingle(listViewBmark, memory.listCountDownBookMarks);
         }
 
         private void historyToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -360,29 +420,68 @@ namespace timerProject
 
         private void SWbtnStart_Click(object sender, EventArgs e)
         {
-
+            
+            
+            SWtimer.Interval = 1;
+            SWtimer.Start();
+            toggleAvaliabilityTextbox("stopwatch", false);
+            
         }
 
        
 
         private void SWbtnStop_Click(object sender, EventArgs e)
         {
+            toggleAvaliabilityTextbox("stopwatch", true);
+            SWtimer.Stop();
+            memory.listSWHistory.Insert(0,SWTextBoxHr.Text + ":" + SWTextBoxMin.Text + ":" + SWTextBoxSec.Text + ":" + SWTextBoxMiSec.Text);
+            memory.updateListViewSingle(SWListViewHis, memory.listSWHistory);
+            //MessageBox.Show(memory.listSWHistory[0]);
+            
+
 
         }
 
         private void SWbtnReset_Click(object sender, EventArgs e)
         {
-
+            initialise("stopwatch");
         }
 
-        private void SWTextBoxSec_TextChanged(object sender, EventArgs e)
+        
+
+        private void SWtimer_Tick(object sender, EventArgs e)
+        {
+            
+            timeTick.updateTime("stopwatch", SWcurrent);
+            updateTextBoxes("stopwatch");
+            SWcurrent++;
+        }
+
+        private void SwBtnLoad_Click(object sender, EventArgs e)
+        {
+            memory.loadFile("stopwatch");
+            memory.updateListViewSingle(SWListViewHis, memory.listSWHistory);
+        }
+
+        private void SWBtnSave_Click(object sender, EventArgs e)
+        {
+            memory.saveFile("stopwatch");
+        }
+
+        private void SWBtnDel_Click(object sender, EventArgs e)
+        {
+            int index = 0;
+            if(SWListViewHis.SelectedIndices.Count > 0)
+            {
+                index = SWListViewHis.SelectedIndices[0];
+                memory.listSWHistory.RemoveAt(index);
+                memory.updateListViewSingle(SWListViewHis, memory.listSWHistory);
+            }
+        }
+
+        private void REbtnStart_Click(object sender, EventArgs e)
         {
 
         }
-
-      
-        
-
-       
     }
 }

@@ -62,6 +62,14 @@
             this.btnDelAllHis = new System.Windows.Forms.Button();
             this.btnDelSelHis = new System.Windows.Forms.Button();
             this.tabPageStopWatch = new System.Windows.Forms.TabPage();
+            this.SWBtnDel = new System.Windows.Forms.Button();
+            this.SWBtnSave = new System.Windows.Forms.Button();
+            this.SwBtnLoad = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.SWTextBoxMiSec = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.SWListViewHis = new System.Windows.Forms.ListView();
+            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.SWTextBoxHr = new System.Windows.Forms.TextBox();
             this.SWbtnStart = new System.Windows.Forms.Button();
@@ -93,9 +101,27 @@
             this.exitProramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMaim = new System.Windows.Forms.MenuStrip();
             this.SWtimer = new System.Windows.Forms.Timer(this.components);
+            this.label20 = new System.Windows.Forms.Label();
+            this.REtextBoxHr = new System.Windows.Forms.TextBox();
+            this.REbtnStart = new System.Windows.Forms.Button();
+            this.REbtnStop = new System.Windows.Forms.Button();
+            this.REbtnReset = new System.Windows.Forms.Button();
+            this.REtextBoxSec = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.REtextBoxMin = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.SEtextBoxSetSec = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.REtimer = new System.Windows.Forms.Timer(this.components);
+            this.SEtextBoxSetHr = new System.Windows.Forms.TextBox();
+            this.SEtextBoxSetMin = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageStopWatch.SuspendLayout();
+            this.tabPageEye.SuspendLayout();
             this.menuStripMaim.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,12 +129,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Candara", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(215, 51);
+            this.label2.Location = new System.Drawing.Point(135, 55);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 39);
+            this.label2.Size = new System.Drawing.Size(269, 39);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Timer";
+            this.label2.Text = "CountDown Timer";
             // 
             // textBoxHour
             // 
@@ -440,6 +466,14 @@
             // 
             // tabPageStopWatch
             // 
+            this.tabPageStopWatch.Controls.Add(this.SWBtnDel);
+            this.tabPageStopWatch.Controls.Add(this.SWBtnSave);
+            this.tabPageStopWatch.Controls.Add(this.SwBtnLoad);
+            this.tabPageStopWatch.Controls.Add(this.label19);
+            this.tabPageStopWatch.Controls.Add(this.SWTextBoxMiSec);
+            this.tabPageStopWatch.Controls.Add(this.label18);
+            this.tabPageStopWatch.Controls.Add(this.SWListViewHis);
+            this.tabPageStopWatch.Controls.Add(this.label17);
             this.tabPageStopWatch.Controls.Add(this.label16);
             this.tabPageStopWatch.Controls.Add(this.SWTextBoxHr);
             this.tabPageStopWatch.Controls.Add(this.SWbtnStart);
@@ -460,6 +494,86 @@
             this.tabPageStopWatch.Text = "StopWatch";
             this.tabPageStopWatch.UseVisualStyleBackColor = true;
             // 
+            // SWBtnDel
+            // 
+            this.SWBtnDel.Location = new System.Drawing.Point(144, 365);
+            this.SWBtnDel.Name = "SWBtnDel";
+            this.SWBtnDel.Size = new System.Drawing.Size(68, 35);
+            this.SWBtnDel.TabIndex = 34;
+            this.SWBtnDel.Text = "Delete Selected";
+            this.SWBtnDel.UseVisualStyleBackColor = true;
+            this.SWBtnDel.Click += new System.EventHandler(this.SWBtnDel_Click);
+            // 
+            // SWBtnSave
+            // 
+            this.SWBtnSave.Location = new System.Drawing.Point(144, 305);
+            this.SWBtnSave.Name = "SWBtnSave";
+            this.SWBtnSave.Size = new System.Drawing.Size(68, 35);
+            this.SWBtnSave.TabIndex = 33;
+            this.SWBtnSave.Text = "Save";
+            this.SWBtnSave.UseVisualStyleBackColor = true;
+            this.SWBtnSave.Click += new System.EventHandler(this.SWBtnSave_Click);
+            // 
+            // SwBtnLoad
+            // 
+            this.SwBtnLoad.Location = new System.Drawing.Point(144, 249);
+            this.SwBtnLoad.Name = "SwBtnLoad";
+            this.SwBtnLoad.Size = new System.Drawing.Size(71, 35);
+            this.SwBtnLoad.TabIndex = 32;
+            this.SwBtnLoad.Text = "Load";
+            this.SwBtnLoad.UseVisualStyleBackColor = true;
+            this.SwBtnLoad.Click += new System.EventHandler(this.SwBtnLoad_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(366, 75);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(94, 20);
+            this.label19.TabIndex = 31;
+            this.label19.Text = "MiliSeconds";
+            // 
+            // SWTextBoxMiSec
+            // 
+            this.SWTextBoxMiSec.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SWTextBoxMiSec.Location = new System.Drawing.Point(383, 98);
+            this.SWTextBoxMiSec.Name = "SWTextBoxMiSec";
+            this.SWTextBoxMiSec.ReadOnly = true;
+            this.SWTextBoxMiSec.Size = new System.Drawing.Size(43, 40);
+            this.SWTextBoxMiSec.TabIndex = 29;
+            this.SWTextBoxMiSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(365, 106);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(18, 28);
+            this.label18.TabIndex = 30;
+            this.label18.Text = ":";
+            // 
+            // SWListViewHis
+            // 
+            this.SWListViewHis.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.SWListViewHis.Location = new System.Drawing.Point(218, 249);
+            this.SWListViewHis.Name = "SWListViewHis";
+            this.SWListViewHis.Size = new System.Drawing.Size(194, 151);
+            this.SWListViewHis.TabIndex = 28;
+            this.SWListViewHis.UseCompatibleStateImageBehavior = false;
+            this.SWListViewHis.View = System.Windows.Forms.View.Details;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(281, 226);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 20);
+            this.label17.TabIndex = 27;
+            this.label17.Text = "History";
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -474,8 +588,9 @@
             // SWTextBoxHr
             // 
             this.SWTextBoxHr.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SWTextBoxHr.Location = new System.Drawing.Point(218, 91);
+            this.SWTextBoxHr.Location = new System.Drawing.Point(185, 98);
             this.SWTextBoxHr.Name = "SWTextBoxHr";
+            this.SWTextBoxHr.ReadOnly = true;
             this.SWTextBoxHr.Size = new System.Drawing.Size(43, 40);
             this.SWTextBoxHr.TabIndex = 16;
             this.SWTextBoxHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -513,18 +628,18 @@
             // SWTextBoxSec
             // 
             this.SWTextBoxSec.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SWTextBoxSec.Location = new System.Drawing.Point(352, 91);
+            this.SWTextBoxSec.Location = new System.Drawing.Point(319, 98);
             this.SWTextBoxSec.Name = "SWTextBoxSec";
+            this.SWTextBoxSec.ReadOnly = true;
             this.SWTextBoxSec.Size = new System.Drawing.Size(43, 40);
             this.SWTextBoxSec.TabIndex = 20;
             this.SWTextBoxSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.SWTextBoxSec.TextChanged += new System.EventHandler(this.SWTextBoxSec_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(340, 68);
+            this.label11.Location = new System.Drawing.Point(307, 75);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(72, 20);
             this.label11.TabIndex = 26;
@@ -533,8 +648,9 @@
             // SWTextBoxMin
             // 
             this.SWTextBoxMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SWTextBoxMin.Location = new System.Drawing.Point(285, 91);
+            this.SWTextBoxMin.Location = new System.Drawing.Point(252, 98);
             this.SWTextBoxMin.Name = "SWTextBoxMin";
+            this.SWTextBoxMin.ReadOnly = true;
             this.SWTextBoxMin.Size = new System.Drawing.Size(43, 40);
             this.SWTextBoxMin.TabIndex = 21;
             this.SWTextBoxMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -543,7 +659,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(272, 68);
+            this.label12.Location = new System.Drawing.Point(239, 75);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(65, 20);
             this.label12.TabIndex = 25;
@@ -553,7 +669,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(214, 68);
+            this.label13.Location = new System.Drawing.Point(181, 75);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(52, 20);
             this.label13.TabIndex = 24;
@@ -563,7 +679,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(261, 99);
+            this.label14.Location = new System.Drawing.Point(228, 106);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(18, 28);
             this.label14.TabIndex = 22;
@@ -573,7 +689,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(334, 99);
+            this.label15.Location = new System.Drawing.Point(301, 106);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(18, 28);
             this.label15.TabIndex = 23;
@@ -581,6 +697,22 @@
             // 
             // tabPageEye
             // 
+            this.tabPageEye.Controls.Add(this.SEtextBoxSetMin);
+            this.tabPageEye.Controls.Add(this.SEtextBoxSetHr);
+            this.tabPageEye.Controls.Add(this.label26);
+            this.tabPageEye.Controls.Add(this.SEtextBoxSetSec);
+            this.tabPageEye.Controls.Add(this.REtextBoxHr);
+            this.tabPageEye.Controls.Add(this.REbtnStart);
+            this.tabPageEye.Controls.Add(this.REbtnStop);
+            this.tabPageEye.Controls.Add(this.REbtnReset);
+            this.tabPageEye.Controls.Add(this.REtextBoxSec);
+            this.tabPageEye.Controls.Add(this.label21);
+            this.tabPageEye.Controls.Add(this.REtextBoxMin);
+            this.tabPageEye.Controls.Add(this.label22);
+            this.tabPageEye.Controls.Add(this.label23);
+            this.tabPageEye.Controls.Add(this.label24);
+            this.tabPageEye.Controls.Add(this.label25);
+            this.tabPageEye.Controls.Add(this.label20);
             this.tabPageEye.Location = new System.Drawing.Point(4, 22);
             this.tabPageEye.Name = "tabPageEye";
             this.tabPageEye.Padding = new System.Windows.Forms.Padding(3);
@@ -728,6 +860,163 @@
             this.menuStripMaim.TabIndex = 23;
             this.menuStripMaim.Text = "mainMenuStrip";
             // 
+            // SWtimer
+            // 
+            this.SWtimer.Tick += new System.EventHandler(this.SWtimer_Tick);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Candara", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(189, 38);
+            this.label20.Margin = new System.Windows.Forms.Padding(0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(220, 39);
+            this.label20.TabIndex = 27;
+            this.label20.Text = "Rest Eye Timer";
+            // 
+            // REtextBoxHr
+            // 
+            this.REtextBoxHr.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.REtextBoxHr.Location = new System.Drawing.Point(212, 107);
+            this.REtextBoxHr.Name = "REtextBoxHr";
+            this.REtextBoxHr.Size = new System.Drawing.Size(43, 40);
+            this.REtextBoxHr.TabIndex = 28;
+            this.REtextBoxHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // REbtnStart
+            // 
+            this.REbtnStart.Location = new System.Drawing.Point(212, 169);
+            this.REbtnStart.Name = "REbtnStart";
+            this.REbtnStart.Size = new System.Drawing.Size(43, 35);
+            this.REbtnStart.TabIndex = 29;
+            this.REbtnStart.Text = "Start";
+            this.REbtnStart.UseVisualStyleBackColor = true;
+            this.REbtnStart.Click += new System.EventHandler(this.REbtnStart_Click);
+            // 
+            // REbtnStop
+            // 
+            this.REbtnStop.Location = new System.Drawing.Point(279, 169);
+            this.REbtnStop.Name = "REbtnStop";
+            this.REbtnStop.Size = new System.Drawing.Size(43, 35);
+            this.REbtnStop.TabIndex = 30;
+            this.REbtnStop.Text = "Stop";
+            this.REbtnStop.UseVisualStyleBackColor = true;
+            // 
+            // REbtnReset
+            // 
+            this.REbtnReset.Location = new System.Drawing.Point(346, 169);
+            this.REbtnReset.Name = "REbtnReset";
+            this.REbtnReset.Size = new System.Drawing.Size(43, 35);
+            this.REbtnReset.TabIndex = 31;
+            this.REbtnReset.Text = "Reset";
+            this.REbtnReset.UseVisualStyleBackColor = true;
+            // 
+            // REtextBoxSec
+            // 
+            this.REtextBoxSec.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.REtextBoxSec.Location = new System.Drawing.Point(346, 107);
+            this.REtextBoxSec.Name = "REtextBoxSec";
+            this.REtextBoxSec.Size = new System.Drawing.Size(43, 40);
+            this.REtextBoxSec.TabIndex = 32;
+            this.REtextBoxSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(334, 84);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(72, 20);
+            this.label21.TabIndex = 38;
+            this.label21.Text = "Seconds";
+            // 
+            // REtextBoxMin
+            // 
+            this.REtextBoxMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.REtextBoxMin.Location = new System.Drawing.Point(279, 107);
+            this.REtextBoxMin.Name = "REtextBoxMin";
+            this.REtextBoxMin.Size = new System.Drawing.Size(43, 40);
+            this.REtextBoxMin.TabIndex = 33;
+            this.REtextBoxMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(266, 84);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(65, 20);
+            this.label22.TabIndex = 37;
+            this.label22.Text = "Minutes";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(208, 84);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(52, 20);
+            this.label23.TabIndex = 36;
+            this.label23.Text = "Hours";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(255, 115);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 28);
+            this.label24.TabIndex = 34;
+            this.label24.Text = ":";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(328, 115);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(18, 28);
+            this.label25.TabIndex = 35;
+            this.label25.Text = ":";
+            // 
+            // SEtextBoxSetSec
+            // 
+            this.SEtextBoxSetSec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEtextBoxSetSec.Location = new System.Drawing.Point(120, 104);
+            this.SEtextBoxSetSec.Name = "SEtextBoxSetSec";
+            this.SEtextBoxSetSec.Size = new System.Drawing.Size(28, 22);
+            this.SEtextBoxSetSec.TabIndex = 39;
+            this.SEtextBoxSetSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(61, 71);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(87, 16);
+            this.label26.TabIndex = 40;
+            this.label26.Text = "Starting Time";
+            // 
+            // SEtextBoxSetHr
+            // 
+            this.SEtextBoxSetHr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEtextBoxSetHr.Location = new System.Drawing.Point(52, 104);
+            this.SEtextBoxSetHr.Name = "SEtextBoxSetHr";
+            this.SEtextBoxSetHr.Size = new System.Drawing.Size(28, 22);
+            this.SEtextBoxSetHr.TabIndex = 41;
+            this.SEtextBoxSetHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // SEtextBoxSetMin
+            // 
+            this.SEtextBoxSetMin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SEtextBoxSetMin.Location = new System.Drawing.Point(86, 104);
+            this.SEtextBoxSetMin.Name = "SEtextBoxSetMin";
+            this.SEtextBoxSetMin.Size = new System.Drawing.Size(28, 22);
+            this.SEtextBoxSetMin.TabIndex = 42;
+            this.SEtextBoxSetMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -748,6 +1037,8 @@
             this.tabPageMain.PerformLayout();
             this.tabPageStopWatch.ResumeLayout(false);
             this.tabPageStopWatch.PerformLayout();
+            this.tabPageEye.ResumeLayout(false);
+            this.tabPageEye.PerformLayout();
             this.menuStripMaim.ResumeLayout(false);
             this.menuStripMaim.PerformLayout();
             this.ResumeLayout(false);
@@ -790,7 +1081,6 @@
         private System.Windows.Forms.Button btnBMtoTimer;
         private System.Windows.Forms.Button btnSaveHistory;
         private System.Windows.Forms.Button btnSaveBM;
-        private System.Windows.Forms.TabPage tabPageStopWatch;
         private System.Windows.Forms.ComboBox comboBoxTabSelection;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -808,6 +1098,14 @@
         private System.Windows.Forms.ToolStripMenuItem restEyeTimerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitProramToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStripMaim;
+        private System.Windows.Forms.Timer SWtimer;
+        private System.Windows.Forms.TabPage tabPageStopWatch;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox SWTextBoxMiSec;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ListView SWListViewHis;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox SWTextBoxHr;
         private System.Windows.Forms.Button SWbtnStart;
         private System.Windows.Forms.Button SWbtnStop;
@@ -819,8 +1117,26 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Timer SWtimer;
+        private System.Windows.Forms.Button SWBtnSave;
+        private System.Windows.Forms.Button SwBtnLoad;
+        private System.Windows.Forms.Button SWBtnDel;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox SEtextBoxSetSec;
+        private System.Windows.Forms.TextBox REtextBoxHr;
+        private System.Windows.Forms.Button REbtnStart;
+        private System.Windows.Forms.Button REbtnStop;
+        private System.Windows.Forms.Button REbtnReset;
+        private System.Windows.Forms.TextBox REtextBoxSec;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox REtextBoxMin;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Timer REtimer;
+        private System.Windows.Forms.TextBox SEtextBoxSetMin;
+        private System.Windows.Forms.TextBox SEtextBoxSetHr;
     }
 }
 
