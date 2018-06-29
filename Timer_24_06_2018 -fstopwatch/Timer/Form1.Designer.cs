@@ -93,6 +93,8 @@
             this.exitProramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMaim = new System.Windows.Forms.MenuStrip();
             this.SWtimer = new System.Windows.Forms.Timer(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageStopWatch.SuspendLayout();
@@ -103,12 +105,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Candara", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(215, 51);
+            this.label2.Location = new System.Drawing.Point(137, 56);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 39);
+            this.label2.Size = new System.Drawing.Size(269, 39);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Timer";
+            this.label2.Text = "CountDown Timer";
             // 
             // textBoxHour
             // 
@@ -440,6 +442,8 @@
             // 
             // tabPageStopWatch
             // 
+            this.tabPageStopWatch.Controls.Add(this.label17);
+            this.tabPageStopWatch.Controls.Add(this.listView1);
             this.tabPageStopWatch.Controls.Add(this.label16);
             this.tabPageStopWatch.Controls.Add(this.SWTextBoxHr);
             this.tabPageStopWatch.Controls.Add(this.SWbtnStart);
@@ -728,6 +732,24 @@
             this.menuStripMaim.TabIndex = 23;
             this.menuStripMaim.Text = "mainMenuStrip";
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(218, 266);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(177, 192);
+            this.listView1.TabIndex = 27;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(279, 243);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 20);
+            this.label17.TabIndex = 28;
+            this.label17.Text = "History";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -821,6 +843,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Timer SWtimer;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

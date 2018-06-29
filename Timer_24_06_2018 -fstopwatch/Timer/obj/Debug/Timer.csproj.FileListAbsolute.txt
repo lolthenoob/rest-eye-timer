@@ -44,3 +44,6 @@ C:\A.jon\Projects\Timer\Timer_23_06_2018 -filecontrol\Timer\obj\Debug\timerProje
 C:\A.jon\Projects\Timer\Timer_23_06_2018 -filecontrol\Timer\obj\Debug\Timer.csproj.GenerateResource.Cache
 C:\A.jon\Projects\Timer\Timer_23_06_2018 -filecontrol\Timer\bin\Debug\timerProject.exe
 C:\A.jon\Projects\Timer\Timer_23_06_2018 -filecontrol\Timer\bin\Debug\timerProject.pdb
+C:\A.jon\Projects\Timer\Timer_24_06_2018 -fstopwatch\Timer\bin\Debug\timerProject.exe.config
+C:\A.jon\Projects\Timer\Timer_24_06_2018 -fstopwatch\Timer\obj\Debug\timerProject.exe
+C:\A.jon\Projects\Timer\Timer_24_06_2018 -fstopwatch\Timer\obj\Debug\timerProject.pdb
